@@ -61,7 +61,7 @@
 			if(options.rotate)
 			{
 				for	(i = 0; i < rotates_value.length; i++) {
-					var a_rc = $("<a>" + rotates_value[i] + "\u00b0</a>").attr("href", "javascript:;");
+					var a_rc = $("<span class='degree'><a>" + rotates_value[i] + "\u00b0</a></span>").attr("href", "javascript:;");
 					$(div_rc).append(a_rc);
 					$(a_rc).data("degree", rotates_value[i]);
 					$(a_rc).click(function() { rotateImage($(this).data("degree")); });
