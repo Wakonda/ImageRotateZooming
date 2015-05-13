@@ -131,7 +131,7 @@
 				ch = img.height;
 				cx = 0;
 				cy = 0;
-				
+
 				switch(degree)
 				{
 					case 0:
@@ -150,8 +150,8 @@
 						cy = img.height * (-1);
 						canvas.setAttribute('width', cw);
 						canvas.setAttribute('height', ch);
-						cContext.rotate(degree * Math.PI / 180);
 						cContext.translate(translatePos.x, translatePos.y);
+						cContext.rotate(degree * Math.PI / 180);
 						cContext.scale(scale, scale);
 						cContext.drawImage(img, cx, cy, ch, cw);
 						break;
