@@ -20,11 +20,24 @@
 		
 		options = $.extend(defaults, options);
 		
+		if(options.zoom)
+		{
+			$('body').on({
+				'mousewheel': function(e) {
+					if (e.target.id == 'canvas') 
+					{
+						e.preventDefault();
+						e.stopPropagation();
+					}
+				}
+			});
+		}
+		
 		this.each(function()
 		{
 			var rotates_value = [0, 90, 180, 270];
 
-			var canvas_el = '<canvas id="canvas" width="300" height="300" style="position: absolute;"></canvas>';
+			var canvas_el = '<canvas id="canvas" width="300" height="300"></canvas>';
 			$(this).after(canvas_el);
 			
 			// Create Image
