@@ -3,6 +3,7 @@ canvas {
 	display : block;
 	margin : auto;
 	position: relative;
+	cursor: move;
 }
 
 span.degree {
@@ -20,7 +21,7 @@ span.degree:hover {
 	background-color: #87cefa;
 }
 
-a {
+span.degree a {
 	display: inline-block;
 	margin-top: 7px;
 }
