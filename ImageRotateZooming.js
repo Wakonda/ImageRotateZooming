@@ -64,7 +64,10 @@
 			canvas.setAttribute('width', cw);
 			canvas.setAttribute('height', ch);
 			
-			cContext.drawImage(img, cx, cy, cw, ch);
+			img.onload = function() {
+				cContext.drawImage(img, cx, cy, cw, ch);
+			}
+
 			$(this).hide();
 			
 			// Create link to rotate image
@@ -101,13 +104,21 @@
 
 			canvas.addEventListener("mousemove", function (e) {
 				if(mouseDown) {
-					var margeY = (img.height * scale) - canvas.height;
-					var margeX = (img.width * scale) - canvas.width;
+					if(degree_select == 0 || degree_select == 180)
+					{
+						var margeY = (img.height * scale) - canvas.height;
+						var margeX = (img.width * scale) - canvas.width;
+					}
+					else
+					{
+						var margeY = (img.width * scale) - canvas.height;
+						var margeX = (img.height * scale) - canvas.width;
+					}
 				
 					var posY = translatePos.y;
 					translatePos.x = e.clientX - startDragOffset.x;
 					translatePos.y = e.clientY - startDragOffset.y;
-					
+
 					if(translatePos.y <= - margeY)
 						translatePos.y = - margeY;
 						
@@ -150,8 +161,9 @@
 					case 0:
 						cw = img.width;
 						ch = img.height;
-						canvas.setAttribute('width', cw);
-						canvas.setAttribute('height', ch);
+
+						canvas.setAttribute('width', img.width);
+						canvas.setAttribute('height', img.height);
 						cContext.rotate(degree * Math.PI / 180);
 						cContext.translate(translatePos.x, translatePos.y);
 						cContext.scale(scale, scale);
@@ -161,8 +173,8 @@
 						cw = img.height;
 						ch = img.width;
 						cy = img.height * (-1);
-						canvas.setAttribute('width', cw);
-						canvas.setAttribute('height', ch);
+						canvas.setAttribute('width', img.height);
+						canvas.setAttribute('height', img.width);
 						cContext.translate(translatePos.x, translatePos.y);
 						cContext.rotate(degree * Math.PI / 180);
 						cContext.scale(scale, scale);
@@ -173,8 +185,8 @@
 						ch = img.width;
 						cx = img.width * (-1);
 						cy = img.height * (-1);
-						canvas.setAttribute('width', ch);
-						canvas.setAttribute('height', cw);
+						canvas.setAttribute('width', img.width);
+						canvas.setAttribute('height', img.height);
 						cContext.translate(translatePos.x, translatePos.y);
 						cContext.scale(scale, scale);
 						cContext.rotate(degree * Math.PI / 180);
@@ -184,8 +196,8 @@
 						cw = img.height;
 						ch = img.width;
 						cx = img.width * (-1);
-						canvas.setAttribute('width', cw);
-						canvas.setAttribute('height', ch);
+						canvas.setAttribute('width', img.height);
+						canvas.setAttribute('height', img.width);
 						cContext.translate(translatePos.x, translatePos.y);
 						cContext.rotate(degree * Math.PI / 180);
 						cContext.scale(scale, scale);
@@ -197,23 +209,36 @@
 			function zoomImage(state, translatePos) {
 				var step = 0.1;
 
-				if(state == "more" || ((state == "less") && ((img.height * scale) > canvas.height)))
+				if(degree_select == 0 || degree_select == 180)
+					var canvasHeight = canvas.height;
+				else
+					var canvasHeight = canvas.width
+				
+				if(state == "more" || ((state == "less") && ((img.height * scale) > canvasHeight)))
 				{
 					if(state == "more")
 						scale = scale + step;
 					else
 						scale = scale - step;
 
-					var margeX = ((img.width * scale) + translatePos.x) - canvas.width;
-					var margeY = ((img.height * scale) + translatePos.y) - canvas.height;
+					if(degree_select == 0 || degree_select == 180)
+					{
+						var margeX = ((img.width * scale) + translatePos.x) - canvas.width;
+						var margeY = ((img.height * scale) + translatePos.y) - canvas.height;
+					}
+					else
+					{
+						var margeX = ((img.height * scale) + translatePos.x) - canvas.width;
+						var margeY = ((img.width * scale) + translatePos.y) - canvas.height;
+					}
 				
 					if(margeX < 0)
 						translatePos.x = translatePos.x - margeX;
 					if(margeY < 0)
 						translatePos.y = translatePos.y - margeY;
-						
-					canvas.setAttribute('width', img.width);
-					canvas.setAttribute('height', img.height);
+					
+					canvas.setAttribute('width', img.height);
+					canvas.setAttribute('height', img.width);
 					cContext.translate(translatePos.x, translatePos.y);
 					cContext.scale(scale, scale);
 				}
