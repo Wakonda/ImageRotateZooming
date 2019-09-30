@@ -145,6 +145,8 @@
 
 					zoomImage(state, translatePos);
 					rotateImage(degree_select);
+
+					e.preventDefault();
 				}
 			});
 
