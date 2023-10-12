@@ -1,8 +1,9 @@
 # ImageRotateZooming
 
-**ImageRotateZooming** is a smart JQuery plugin for rotation and zooming an Image.
+**ImageRotateZooming** is a smart JavaScript plugin for rotation and zooming an Image.
 
 ## How it works
+### JQuery
 First step, insert following code in a HTML page:
 
 ```
@@ -16,6 +17,28 @@ First step, insert following code in a HTML page:
 			"zoom": true
 		});
 	});
+</script>
+```
+...
+```
+<img id="img_zoomed" src="my_image.png" width="400" height="400" />
+```
+
+### Vanilla JS
+First step, insert following code in a HTML page:
+
+```
+<link rel="stylesheet" href="ImageRotateZooming.css" />
+<script type="text/javascript" src="ImageRotateZooming.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+	var images = document.querySelector('#img_zoomed');
+	ImageRotateZooming(images, {
+	    zoom: true,
+	    rotate: true
+	});
+});
 </script>
 ```
 ...
