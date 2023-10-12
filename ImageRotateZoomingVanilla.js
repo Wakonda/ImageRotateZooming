@@ -97,6 +97,9 @@
     }
 
     function initImageRotateZooming(element, options) {
+		if(!NodeList.prototype.isPrototypeOf(element))
+			element = new Array(element);
+
         if (!isCanvasSupported()) {
             alert("Your browser doesn't support \"canvas\"");
             return;
@@ -131,7 +134,6 @@
             img.src = el.src;
             img.naturalWidth = el.width;
             img.naturalHeight = el.height;
-            img.id = "img_zoomed";
 
             rotate = 0;
             cContext = canvas.getContext('2d');
